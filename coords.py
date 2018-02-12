@@ -17,7 +17,7 @@ class GeographicCoordinates(np.ndarray):
         that the last dimesion is of length 3, and sets all elements
         to 0.
         """
-        return(super().__new__(cls, (*args, 3))*0)
+        return(np.zeros((*args, 3)).view(GeographicCoordinates))
 
     def __setitem__(self, index, value):
         """
@@ -37,9 +37,9 @@ class GeographicCoordinates(np.ndarray):
 
     def to_cartesian(self):
         cart = CartesianCoordinates(*self.shape[:-1])
-        rho = EARTH_RADIUS - self[...,2]
-        theta = PI/2 - np.radians(self[...,0])
-        phi = np.radians(self[...,1])
+        rho = np.asarray(EARTH_RADIUS - self[...,2])
+        theta = np.asarray(PI/2 - np.radians(self[...,0]))
+        phi = np.asarray(np.radians(self[...,1]))
         cart[...,0] = rho * np.sin(theta) * np.cos(phi)
         cart[...,1] = rho * np.sin(theta) * np.sin(phi)
         cart[...,2] = rho * np.cos(theta)
@@ -75,7 +75,7 @@ class CartesianCoordinates(np.ndarray):
         that the last dimesion is of length 3, and sets all elements
         to 0.
         """
-        return(super().__new__(cls, (*args, 3))*0)
+        return(np.zeros((*args, 3)).view(CartesianCoordinates))
 
     def rotate(self, alpha, beta, gamma):
         """
@@ -122,7 +122,7 @@ class SphericalCoordinates(np.ndarray):
         that the last dimesion is of length 3, and sets all elements
         to 0.
         """
-        return(super().__new__(cls, (*args, 3))*0)
+        return(np.zeros((*args, 3)).view(SphericalCoordinates))
 
     def __setitem__(self, index, value):
         """
@@ -172,7 +172,7 @@ class  LeftSphericalCoordinates(np.ndarray):
         that the last dimesion is of length 3, and sets all elements
         to 0.
         """
-        return(super().__new__(cls, (*args, 3))*0)
+        return(np.zeros((*args, 3)).view(LeftSphericalCoordinates))
 
     def __setitem__(self, index, value):
         """
@@ -246,6 +246,15 @@ def as_spherical(array):
     spher[...] = array
     return(spher)
 
+def test():
+    with open("/Users/malcolcw/Projects/Shared/Topography/anza.xyz") as inf:
+        data = np.array([[float(v) for v in line.split()] for line in inf])
+        gc = GeographicCoordinates(len(data))
+        gc[:,0], gc[:,1], gc[:,2] = data[:,1], data[:,0], data[:,2]/1000
+        print(gc.to_cartesian())
+        #np.save("topo.npy", gc.to_cartesian().rotate(P0, T0, 0))
+
 if __name__ == "__main__":
     print("coords.py not an executable script!!!")
+    test()
     exit()
