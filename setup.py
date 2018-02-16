@@ -12,7 +12,8 @@ def configure():
               "description": "Coordinate system transformations",
               "download_url": "https://github.com/malcolmw/coords.git",
               "platforms": ["linux", "osx"],
-              "py_modules": ["coords"]}
+              "packages": ["coords"],
+              "py_modules": ["coords.coords"]}
     return(kwargs)
 
 if __name__ == "__main__":
