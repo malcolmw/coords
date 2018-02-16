@@ -17,7 +17,7 @@ class GeographicCoordinates(np.ndarray):
         that the last dimesion is of length 3, and sets all elements
         to 0.
         """
-        return(np.zeros((*args, 3)).view(GeographicCoordinates))
+        return(np.zeros(args + (3,)).view(GeographicCoordinates))
 
     def __setitem__(self, index, value):
         """
@@ -75,7 +75,7 @@ class CartesianCoordinates(np.ndarray):
         that the last dimesion is of length 3, and sets all elements
         to 0.
         """
-        return(np.zeros((*args, 3)).view(CartesianCoordinates))
+        return(np.zeros(args + (3,)).view(CartesianCoordinates))
 
     def rotate(self, alpha, beta, gamma):
         """
@@ -122,7 +122,7 @@ class SphericalCoordinates(np.ndarray):
         that the last dimesion is of length 3, and sets all elements
         to 0.
         """
-        return(np.zeros((*args, 3)).view(SphericalCoordinates))
+        return(np.zeros(args + (3,)).view(SphericalCoordinates))
 
     def __setitem__(self, index, value):
         """
@@ -172,7 +172,7 @@ class  LeftSphericalCoordinates(np.ndarray):
         that the last dimesion is of length 3, and sets all elements
         to 0.
         """
-        return(np.zeros((*args, 3)).view(LeftSphericalCoordinates))
+        return(np.zeros(args + (3,)).view(LeftSphericalCoordinates))
 
     def __setitem__(self, index, value):
         """
