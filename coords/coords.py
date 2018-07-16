@@ -227,22 +227,22 @@ def rotation_matrix(alpha, beta, gamma):
     return(R)
 
 def as_cartesian(array):
-    cart = CartesianCoordinates(np.asarray(array).shape[:-1])
+    cart = CartesianCoordinates(*np.asarray(array).shape[:-1])
     cart[...] = array
     return(cart)
 
 def as_geographic(array):
-    geo = GeographicCoordinates(np.asarray(array).shape[:-1])
+    geo = GeographicCoordinates(*np.asarray(array).shape[:-1])
     geo[...] = array
     return(geo)
 
 def as_left_spherical(array):
-    lspher = LeftSphericalCoordinates(np.asarray(array).shape[:-1])
+    lspher = LeftSphericalCoordinates(*np.asarray(array).shape[:-1])
     lspher[...] = array
     return(lspher)
 
 def as_spherical(array):
-    spher = SphericalCoordinates(np.asarray(array).shape[:-1])
+    spher = SphericalCoordinates(*np.asarray(array).shape[:-1])
     spher[...] = array
     return(spher)
 
