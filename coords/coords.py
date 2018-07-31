@@ -17,7 +17,7 @@ class GeographicCoordinates(np.ndarray):
         that the last dimesion is of length 3, and sets all elements
         to 0.
         """
-        return(np.zeros((*args, 3)).view(GeographicCoordinates))
+        return(np.zeros(args + (3,)).view(GeographicCoordinates))
 
     def __setitem__(self, index, value):
         """
@@ -75,7 +75,7 @@ class CartesianCoordinates(np.ndarray):
         that the last dimesion is of length 3, and sets all elements
         to 0.
         """
-        return(np.zeros((*args, 3)).view(CartesianCoordinates))
+        return(np.zeros(args + (3,)).view(CartesianCoordinates))
 
     def rotate(self, alpha, beta, gamma):
         """
@@ -122,7 +122,7 @@ class SphericalCoordinates(np.ndarray):
         that the last dimesion is of length 3, and sets all elements
         to 0.
         """
-        return(np.zeros((*args, 3)).view(SphericalCoordinates))
+        return(np.zeros(args + (3,)).view(SphericalCoordinates))
 
     def __setitem__(self, index, value):
         """
@@ -172,7 +172,7 @@ class  LeftSphericalCoordinates(np.ndarray):
         that the last dimesion is of length 3, and sets all elements
         to 0.
         """
-        return(np.zeros((*args, 3)).view(LeftSphericalCoordinates))
+        return(np.zeros(args + (3,)).view(LeftSphericalCoordinates))
 
     def __setitem__(self, index, value):
         """
@@ -227,22 +227,22 @@ def rotation_matrix(alpha, beta, gamma):
     return(R)
 
 def as_cartesian(array):
-    cart = CartesianCoordinates(np.asarray(array).shape[:-1])
+    cart = CartesianCoordinates(*np.asarray(array).shape[:-1])
     cart[...] = array
     return(cart)
 
 def as_geographic(array):
-    geo = GeographicCoordinates(np.asarray(array).shape[:-1])
+    geo = GeographicCoordinates(*np.asarray(array).shape[:-1])
     geo[...] = array
     return(geo)
 
 def as_left_spherical(array):
-    lspher = LeftSphericalCoordinates(np.asarray(array).shape[:-1])
+    lspher = LeftSphericalCoordinates(*np.asarray(array).shape[:-1])
     lspher[...] = array
     return(lspher)
 
 def as_spherical(array):
-    spher = SphericalCoordinates(np.asarray(array).shape[:-1])
+    spher = SphericalCoordinates(*np.asarray(array).shape[:-1])
     spher[...] = array
     return(spher)
 
